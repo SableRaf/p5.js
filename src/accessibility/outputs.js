@@ -8,12 +8,11 @@
 import p5 from '../core/main';
 
 /**
- * Creates a screen reader-accessible description for shapes on the canvas.
- * `textOutput()` adds a general description, list of shapes, and
- * table of shapes to the web page.
+ * Creates a screen reader-accessible description of shapes on the canvas.
  *
- * The general description includes the canvas size, canvas color, and number
- * of shapes. For example,
+ * `textOutput()` adds a general description, list of shapes, and
+ * table of shapes to the web page. The general description includes the
+ * canvas size, canvas color, and number of shapes. For example,
  * `Your output is a, 100 by 100 pixels, gray canvas containing the following 2 shapes:`.
  *
  * A list of shapes follows the general description. The list describes the
@@ -35,8 +34,8 @@ import p5 from '../core/main';
  * mode.
  *
  * Read
- * <a href="/learn/labeling-canvases.html">How to label your p5.js code</a> to
- * learn more about making sketches accessible.
+ * <a href="https://p5js.org/tutorials/writing-accessible-canvas-descriptions/">Writing accessible canvas descriptions</a>
+ * to learn more about making sketches accessible.
  *
  * @method textOutput
  * @param  {Constant} [display] either FALLBACK or LABEL.
@@ -143,12 +142,11 @@ p5.prototype.textOutput = function(display) {
 };
 
 /**
- * Creates a screen reader-accessible description for shapes on the canvas.
- * `gridOutput()` adds a general description, table of shapes, and list of
- * shapes to the web page.
+ * Creates a screen reader-accessible description of shapes on the canvas.
  *
- * The general description includes the canvas size, canvas color, and number of
- * shapes. For example,
+ * `gridOutput()` adds a general description, table of shapes, and list of
+ * shapes to the web page. The general description includes the canvas size,
+ * canvas color, and number of shapes. For example,
  * `gray canvas, 100 by 100 pixels, contains 2 shapes:  1 circle 1 square`.
  *
  * `gridOutput()` uses its table of shapes as a grid. Each shape in the grid
@@ -171,8 +169,8 @@ p5.prototype.textOutput = function(display) {
  * mode.
  *
  * Read
- * <a href="/learn/labeling-canvases.html">How to label your p5.js code</a> to
- * learn more about making sketches accessible.
+ * <a href="https://p5js.org/tutorials/writing-accessible-canvas-descriptions/">Writing accessible canvas descriptions</a>
+ * to learn more about making sketches accessible.
  *
  * @method gridOutput
  * @param  {Constant} [display] either FALLBACK or LABEL.
@@ -463,7 +461,7 @@ p5.prototype._accsOutput = function(f, args) {
   if (f === 'line') {
     //make color stroke
     include.color = this.ingredients.colors.stroke;
-    //get lenght
+    //get length
     include.length = Math.round(this.dist(args[0], args[1], args[2], args[3]));
     //get position of end points
     let p1 = this._getPos(args[0], [1]);
@@ -581,8 +579,13 @@ p5.prototype._getPos = function (x, y) {
 function _canvasLocator(args, canvasWidth, canvasHeight) {
   const noRows = 10;
   const noCols = 10;
-  let locX = Math.floor(args[0] / canvasWidth * noRows);
-  let locY = Math.floor(args[1] / canvasHeight * noCols);
+  let x = args[0];
+  let y = args[1];
+  if (x < 0 || x >= canvasWidth || y < 0 || y >= canvasHeight) {
+    return null;
+  }
+  let locX = Math.floor(x / canvasWidth * noRows);
+  let locY = Math.floor(y / canvasHeight * noCols);
   if (locX === noRows) {
     locX = locX - 1;
   }
